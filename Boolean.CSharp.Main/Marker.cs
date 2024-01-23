@@ -10,6 +10,9 @@ namespace Boolean.CSharp.Main
 {
     public class Marker
     {
-        
+        public Marker()
+        {
+
+        }
     }
 }

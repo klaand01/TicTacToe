@@ -1,2 +1,4 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿using Boolean.CSharp.Main;
+
+Board board = new Board();
+board.DrawBoard();
