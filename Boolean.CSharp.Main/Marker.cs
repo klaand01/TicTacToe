@@ -8,11 +8,25 @@ using System.Text;
 
 namespace Boolean.CSharp.Main
 {
-    public class Marker
+    public abstract class Marker
     {
-        public Marker()
-        {
+        private string mark;
+        private string playerName;
 
+        protected Marker(string mark, string playerName)
+        {
+            this.mark = mark;
+            this.playerName = playerName;
+        }
+
+        public string GetMark()
+        {
+            return mark;
+        }
+
+        public string GetName()
+        {
+            return playerName;
         }
     }
 }

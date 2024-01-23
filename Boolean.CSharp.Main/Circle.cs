@@ -8,6 +8,9 @@ namespace Boolean.CSharp.Main
 {
     public class Circle : Marker
     {
-        
+        public Circle(string playerName) : base("O", playerName)
+        {
+
+        }
     }
 }
