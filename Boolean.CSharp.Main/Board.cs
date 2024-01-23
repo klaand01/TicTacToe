@@ -116,9 +116,15 @@ namespace Boolean.CSharp.Main
                 return true;
 
             //Checking diagonal
+            if (spaces[4].Contains(mark))
+            {
+                if (spaces[0].Contains(mark) && spaces[8].Contains(mark))
+                    return true;
+                else if (spaces[2].Contains(mark) && spaces[6].Contains(mark))
+                    return true;
+            }
 
-
-            return  false;
+            return false;
         }
     }
 }
