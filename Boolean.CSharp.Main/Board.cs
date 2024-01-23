@@ -9,9 +9,12 @@ namespace Boolean.CSharp.Main
     public class Board
     {
         private string[] spaces = new string[9];
+        private bool haveWon;
 
         public Board()
         {
+            haveWon = false;
+
             spaces[0] = "___";
             spaces[1] = "|___|";
             spaces[2] = "___";
@@ -41,14 +44,14 @@ namespace Boolean.CSharp.Main
             Console.WriteLine(board);
         }
 
-        public void AddMarker(Marker player, int i)
+        public string AddMarker(Marker player, int i)
         {
             //Checking parameters
             if (player == null)
-                return;
-            
+                return "Player is not initialized";
+
             if ((i - 1) > spaces.Length || (i - 1) < 0)
-                return;
+                return "Not a possible space";
 
             //Setting up changes
             int markIndex = 1;
@@ -58,20 +61,21 @@ namespace Boolean.CSharp.Main
             if (spaces[index][0] == '|')
                 markIndex++;
 
-            //Repleces the character with the marker
+            //Replaces the character with the marker
+            if (spaces[index].Contains('O') || spaces[index].Contains('X'))
+                return "Space already taken!";
+
             spaces[index] = spaces[index].Insert(markIndex, mark);
             spaces[index] = spaces[index].Remove(markIndex + 1, 1);
             
             //Afterchecks for the players
             DrawBoard();
-
-            if (HaveWon(player, index))
-                Console.WriteLine("\nCONGRATULATIONS " + player.GetName() + "!\nYou won");
+            CheckWinCondition(player, index);
+            return "";
         }
 
-        private bool HaveWon(Marker player, int index)
+        private void CheckRow(string mark, int index)
         {
-            string mark = player.GetMark();
             int check1 = 0;
             int check2 = 0;
 
@@ -93,7 +97,13 @@ namespace Boolean.CSharp.Main
             }
 
             if (spaces[check1].Contains(mark) && spaces[check2].Contains(mark))
-                return true;
+                haveWon = true;
+        }
+
+        private void CheckColumn(string mark, int index)
+        {
+            int check1 = 0;
+            int check2 = 0;
 
             //Checking the column
             if (index < 3)
@@ -113,18 +123,29 @@ namespace Boolean.CSharp.Main
             }
 
             if (spaces[check1].Contains(mark) && spaces[check2].Contains(mark))
-                return true;
+                haveWon = true;
+        }
 
+        private void CheckWinCondition(Marker player, int index)
+        {
+            string mark = player.GetMark();
+            
+            CheckRow(mark, index);
+            CheckColumn(mark, index);
+            
             //Checking diagonal
             if (spaces[4].Contains(mark))
             {
                 if (spaces[0].Contains(mark) && spaces[8].Contains(mark))
-                    return true;
+                    haveWon = true;
                 else if (spaces[2].Contains(mark) && spaces[6].Contains(mark))
-                    return true;
+                    haveWon = true;
             }
+        }
 
-            return false;
+        public bool PlayerHaveWon()
+        {
+            return haveWon;
         }
     }
 }

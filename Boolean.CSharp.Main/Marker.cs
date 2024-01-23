@@ -10,12 +10,14 @@ namespace Boolean.CSharp.Main
 {
     public abstract class Marker
     {
+        Board board = null;
         private string mark;
         private string playerName;
 
-        protected Marker(string mark, string playerName)
+        protected Marker(string mark, string playerName, Board board)
         {
             this.mark = mark;
+            this.board = board;
             this.playerName = playerName;
         }
 
@@ -27,6 +29,11 @@ namespace Boolean.CSharp.Main
         public string GetName()
         {
             return playerName;
+        }
+
+        public string AddMarker(int index)
+        {
+            return board.AddMarker(this, index);
         }
     }
 }

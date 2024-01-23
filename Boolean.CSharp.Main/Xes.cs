@@ -8,7 +8,7 @@ namespace Boolean.CSharp.Main
 {
     public class Xes : Marker
     {
-        public Xes(string playerName) : base("X", playerName)
+        public Xes(string playerName, Board board) : base("X", playerName, board)
         {
 
         }
