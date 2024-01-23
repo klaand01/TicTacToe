@@ -39,5 +39,24 @@ namespace Boolean.CSharp.Main
             
             Console.WriteLine(board);
         }
+
+        public void AddMarker(string mark, int i)
+        {
+            if (i > spaces.Length || i < 0)
+                return;
+
+            if (mark != "X" && mark != "O")
+                return;
+
+            int markIndex = 1;
+            int index = i - 1;
+
+            if (spaces[index][0] == '|')
+                markIndex = 2;
+
+            spaces[index] = spaces[index].Insert(markIndex, mark);
+            spaces[index] = spaces[index].Remove(markIndex + 1, 1);
+            DrawBoard();
+        }
     }
 }
